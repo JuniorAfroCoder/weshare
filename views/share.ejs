@@ -447,6 +447,16 @@
                   </div>
                 </div>
 
+                <div class="mt-4 hidden" id="upload-progress-container">
+  <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+    <div id="upload-progress-bar" 
+         class="bg-indigo-600 h-2.5 rounded-full" 
+         style="width: 0%">
+    </div>
+  </div>
+  <p id="upload-status" class="mt-2 text-sm text-gray-600"></p>
+</div>
+
                 <div class="mt-4 flex items-center justify-between mx-2">
                   <button
                     type="button"
@@ -650,6 +660,46 @@
           $('#coursDiv').css('display', 'block');
         });
       });
+
+      document.querySelector('form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const formData = new FormData(this);
+  const progressBar = document.getElementById('upload-progress-bar');
+  const progressContainer = document.getElementById('upload-progress-container');
+  const uploadStatus = document.getElementById('upload-status');
+  
+  // Show progress container
+  progressContainer.classList.remove('hidden');
+  
+  const xhr = new XMLHttpRequest();
+  
+  xhr.upload.addEventListener('progress', function(e) {
+    if (e.lengthComputable) {
+      const percentComplete = (e.loaded / e.total) * 100;
+      progressBar.style.width = percentComplete + '%';
+      uploadStatus.textContent = `Uploading: ${Math.round(percentComplete)}%`;
+    }
+  });
+  
+  xhr.addEventListener('load', function() {
+    if (xhr.status === 200) {
+      uploadStatus.textContent = 'Upload completed successfully!';
+      setTimeout(() => {
+        window.location.href = '/resources'; // Redirect after success
+      }, 1500);
+    } else {
+      uploadStatus.textContent = 'Upload failed. Please try again.';
+    }
+  });
+  
+  xhr.addEventListener('error', function() {
+    uploadStatus.textContent = 'Upload failed. Please try again.';
+  });
+  
+  xhr.open('POST', '/upload', true);
+  xhr.send(formData);
+});
     </script>
   </body>
 </html>

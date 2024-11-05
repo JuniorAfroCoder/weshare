@@ -1,0 +1,3 @@
+- correct the grid system for the card display of the  files (padding left and right)
+- add query filters to teh resources pages (by level, section, subject,and year)
+- 

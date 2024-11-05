@@ -71,11 +71,41 @@ app.get('/resources', async (req,res) =>{
   res.render('resources', {files})
 })
 
-app.get('/resources/:id', async(req,res)=>{
-  const file = await File.findById(req.params.id)
-  res.download(file.path, file.originalname)
-  console.log(file)
-})
+//downloading a specific file using the id
+app.get('/resources/:id', async(req, res) => {
+  try {
+    const file = await File.findById(req.params.id);
+    if (!file) {
+      return res.status(404).send('File not found');
+    }
+
+    // Set the appropriate content type header
+    const mimeType = getMimeType(file.fileName);
+    res.setHeader('Content-Type', mimeType);
+    res.setHeader('Content-Disposition', `attachment; filename="${file.fileName}"`);
+
+    // Create a read stream from the file path
+    const fileStream = fs.createReadStream(file.path);
+    fileStream.pipe(res);
+  } catch (error) {
+    console.error('Download error:', error);
+    res.status(500).send('Error downloading file');
+  }
+});
+
+// Helper function to determine MIME type
+function getMimeType(fileName) {
+  const extension = path.extname(fileName).toLowerCase();
+  const mimeTypes = {
+    '.pdf': 'application/pdf',
+    '.doc': 'application/msword',
+    '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    '.txt': 'text/plain',
+    // Add more mime types as needed
+  };
+  return mimeTypes[extension] || 'application/octet-stream';
+}
+
 
 
 
