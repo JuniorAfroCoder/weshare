@@ -10,6 +10,7 @@ const app = express()
 const mongoUrl= 'mongodb+srv://jmurenguko:Accolade123@cluster0.3iilu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 
 app.use(express.json());
+app.use('/public', express.static('public'));
 
 const upload = multer({ dest: "uploads" })
 

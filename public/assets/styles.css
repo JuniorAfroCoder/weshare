@@ -1,0 +1,103 @@
+ * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-style: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}  
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  
+}
+
+.dropdownContainer{
+  margin: 1rem 0;
+  display: flex;
+  gap: 5%;
+  justify-content: center;
+
+}
+
+.card{
+  width: 15rem;
+  border: 1px solid #e5e7eb;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+  text-align: center;
+  background-color: #fbfcf8;
+  border-radius: 0.375rem;
+}
+
+.card > * {
+  max-width: 100%;
+}
+.buttons{
+  display: flex;
+  gap: 2em;
+}
+
+.card-button{
+  background-color: rgb(79,70,229);
+  border: none;
+  color: white;
+  border-radius: 0.375rem;
+  border-color: #e5e7eb;
+  padding: 10px 14px;
+  font-weight: 600;
+}
+
+
+/* Dropdown Buttons */
+.dropbtn {
+  background-color: rgb(79,70,229);
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+    
